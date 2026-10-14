@@ -1,0 +1,51 @@
+%% MS-STA E4 — sơ đồ tổng quan + chi tiết input R1 / S_A
+%% Dán vào https://mermaid.live
+%% Luận điểm hiệu suất: giảm độ trễ so B4 · e4_ready=false · SoT vẫn B4
+
+flowchart TB
+  classDef step fill:#F8FAFC,stroke:#334155,stroke-width:1.5px,color:#111
+  classDef in fill:#E0F2FE,stroke:#0369A1,stroke-width:2px,color:#111
+  classDef rgb fill:#ECFEFF,stroke:#0E7490,stroke-width:1.5px,color:#111
+  classDef skel fill:#FFF7ED,stroke:#C2410C,stroke-width:1.5px,color:#111
+  classDef teach fill:#FEF3C7,stroke:#B45309,stroke-width:1.5px,color:#111
+  classDef think fill:#F5F3FF,stroke:#6D28D9,stroke-width:1.5px,color:#111
+  classDef out fill:#DCFCE7,stroke:#166534,stroke-width:2px,color:#111
+  classDef note fill:#FEE2E2,stroke:#991B1B,stroke-width:1.5px,color:#111
+
+  A["BƯỚC 1 · CÙNG INPUT BÀI TOÁN VỚI B4<br/>Video Front · 1 gloss · 400 lớp<br/>Cùng split signer-disjoint"]
+
+  P["VẤN ĐỀ<br/>B4 có SlowFast → chậm ~1,23 s/clip<br/>khi đo stage-matched từ video thô<br/>E4 thử biểu diễn nhẹ hơn"]
+
+  R1["RGB candidate R1 · mosaic 2×2<br/>Mỗi frame cắt 4 view:<br/>global · upper_body · left_hand · right_hand<br/>Mỗi ô 80×80 → khảm canvas 160×160×3<br/>T_max = 32 bước thời gian<br/>Chỉ 1 lần backbone / frame<br/>KHÔNG chạy SlowFast khi suy luận E4"]
+
+  SA["Skeleton layout S_A · signing_core<br/>Đọc 75 khớp sealed của B4 (read-only)<br/>Giữ lõi: vai · khuỷu · cổ tay<br/>MCP · đầu ngón · neo miệng<br/>+ vận tốc + validity + chirality<br/>Chuẩn hóa gốc giữa 2 vai"]
+
+  T["Giáo viên B4 đóng băng<br/>Checkpoint seed 42 · chỉ đọc<br/>Cho 400 logits để E4 học theo"]
+
+  M["Mạng E4 · R1_S_A_d128<br/>d_model = 128<br/>Hai luồng gọn + hợp nhất nhẹ hơn B4"]
+
+  L["Học<br/>CE đúng nhãn<br/>+ 0,5 × KL distill từ B4"]
+
+  O["OUTPUT giống B4 về hình thức<br/>400 điểm → Softmax<br/>→ Top-1 / Top-5"]
+
+  G["Cổng<br/>1 Feasibility tốc độ R4B PASS<br/>2 Accuracy vs B4<br/>3 Efficiency<br/>4 Mới xét test / D4 / demo"]
+
+  N["Trạng thái đúng<br/>R4B: ~417 ms vs B4 ~1230 ms<br/>e4_ready = false<br/>SoT vẫn B4-V6"]
+
+  A --> P
+  P --> R1
+  P --> SA
+  R1 --> M
+  SA --> M
+  T --> L
+  M --> L
+  L --> O --> G --> N
+
+  class A,P,G step
+  class A,P in
+  class R1 rgb
+  class SA skel
+  class T teach
+  class M,L think
+  class O out
+  class N note

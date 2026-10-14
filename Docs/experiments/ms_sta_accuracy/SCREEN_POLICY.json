@@ -1,0 +1,65 @@
+{
+  "schema": "ms_sta_accuracy_screen_policy_v1",
+  "status": "PREDECLARED_PILOT_ONLY",
+  "claim_allowed": false,
+  "objective": "Test whether a lower learning rate stabilizes B4 validation training without changing data, architecture, initialization, or the locked E2/D4 artifacts.",
+  "scope": {
+    "split": "validation_only",
+    "variant": "b4",
+    "screen_seed": 42,
+    "test_access": "forbidden",
+    "e2_reuse": "forbidden",
+    "defense_checkpoint_replacement": "forbidden"
+  },
+  "locked_reference": {
+    "source": "Docs/results/ms_sta_e1_v2/MATRIX_AGGREGATE.json",
+    "seed42_top1_pct": 52.02312138728324,
+    "seed42_top5_pct": 84.23892100192678,
+    "three_seed_top1_mean_pct": 51.95889531149647,
+    "three_seed_top1_std_pct": 0.8303813158070128
+  },
+  "unchanged": {
+    "model": "B4 MS-STA",
+    "optimizer": "AdamW",
+    "weight_decay": 0.05,
+    "label_smoothing": 0.05,
+    "batch_size": 32,
+    "initialization": "gate3_rgb_proj_and_compatible_classifier",
+    "skeleton_temporal_stride": 1,
+    "train_val_ids": "data/processed/vsl400_e1_split_manifest.json",
+    "eligible_ids": "data/processed/vsl400_eligible_sample_manifest.json"
+  },
+  "candidates": [
+    {
+      "id": "lr5e4",
+      "learning_rate": 0.0005,
+      "epochs": 12,
+      "patience": 5,
+      "policy": "Docs/experiments/ms_sta_accuracy/PILOT_LR5E4.json"
+    },
+    {
+      "id": "lr3e4",
+      "learning_rate": 0.0003,
+      "epochs": 12,
+      "patience": 5,
+      "policy": "Docs/experiments/ms_sta_accuracy/PILOT_LR3E4.json"
+    }
+  ],
+  "selection_rule": {
+    "rank_by": "best validation Top-1 on seed 42",
+    "minimum_top1_delta_pp": 1.0,
+    "maximum_top5_regression_pp": 1.0,
+    "pass_requires_all": true,
+    "action_if_pass": "freeze one selected configuration before running seeds 42, 123, and 456",
+    "action_if_fail": "stop the accuracy search and retain the locked B4 defense result"
+  },
+  "search_cap": {
+    "maximum_candidates": 2,
+    "additional_post_result_tuning": "forbidden"
+  },
+  "notes": [
+    "This screen cannot support a defense or test-set claim.",
+    "A higher seed-42 result alone is not a replacement for the locked three-seed evidence.",
+    "The locked B4 E2 and D4 artifacts remain immutable."
+  ]
+}

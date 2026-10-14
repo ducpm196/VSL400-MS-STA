@@ -1,0 +1,23 @@
+# Pre-defense audit text artifacts must stay LF for control-character hygiene gates.
+Docs/results/project_predefense_audit/*.md text eol=lf
+Docs/results/project_predefense_audit/*.log text eol=lf
+Docs/results/project_predefense_audit/*.jsonl text eol=lf
+Docs/results/project_predefense_audit/TEST_EXECUTION_RAW_V2.log text eol=lf
+
+# E4_SYSKD_V1 policy/artifact hashes require stable LF.
+Docs/results/e4_system_kd_v1/** text eol=lf
+Docs/results/e4_system_kd_v1_policy/** text eol=lf
+Docs/results/e4_system_kd_v1_registry/** text eol=lf
+
+# PDFs are binary; do not subject them to text whitespace checks.
+*.pdf binary
+
+# Sealed hashes refer to exact bytes, not platform-normalized text.
+# Keep these after generic text rules; git archive must preserve checkpoint contracts.
+data/processed/*.json -text whitespace=cr-at-eol
+metadata.csv -text whitespace=cr-at-eol
+Docs/results/**/*.json -text whitespace=cr-at-eol
+
+# All sealed evidence is byte-exact: store and check out the bytes the recorded SHA-256 values refer to.
+Docs/results/** -text
+data/processed/** -text

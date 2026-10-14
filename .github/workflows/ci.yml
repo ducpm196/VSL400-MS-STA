@@ -1,0 +1,29 @@
+name: ci
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  gate1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CI deps (no mediapipe/wandb/google)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-ci.txt
+      - name: pip check (hard gate)
+        run: pip check
+      - name: Import boundary (extract module without mediapipe)
+        run: |
+          python -c "import importlib; importlib.import_module('src.data_prep.extract_and_smooth'); importlib.import_module('src.data_prep.skel_postprocess'); print('ok')"
+      - name: Compile
+        run: python -m compileall -q src tests scripts
+      - name: Claim-lint primary SoT (no historical Defense GO / E1-E2 as primary)
+        run: python scripts/claim_lint_primary_sot.py
+      - name: Pytest (hermetic — skip local artifact integration)
+        run: python -m pytest -m "not requires_artifacts"

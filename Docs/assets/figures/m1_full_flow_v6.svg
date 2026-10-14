@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1180" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="900" height="1180" fill="#fafaf9"/>
+  <text x="24" y="28" fill="#0f4c5c" font-size="16" font-weight="700">Hình M1 · Full-flow MS-STA v6 / B4-V6 (Input → Output)</text>
+  <rect x="40" y="48" width="820" height="56" fill="#eaf2f8" stroke="#17365d" stroke-width="2" rx="6"/>
+  <text x="56" y="72" fill="#17365d" font-size="13" font-weight="700">A · INPUT</text>
+  <text x="56" y="92" fill="#1c1917" font-size="12">Video Front · 1 gloss/clip · 400 lớp · eligible N=24.752 · signer-independent</text>
+  <line x1="450" y1="104" x2="450" y2="122" stroke="#1c1917" stroke-width="2" marker-end="url(#a)"/>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1c1917"/></marker></defs>
+
+  <rect x="40" y="124" width="390" height="100" fill="#ecfeff" stroke="#0e7490" stroke-width="2" rx="6"/>
+  <text x="56" y="148" fill="#0e7490" font-size="13" font-weight="700">B1 · RGB-token v3</text>
+  <text x="56" y="168" fill="#1c1917" font-size="12">SlowFast đóng băng → ROIAlign 4 vùng</text>
+  <text x="56" y="188" fill="#44403c" font-size="11">global / face / L-hand / R-hand → cache</text>
+  <text x="56" y="208" fill="#44403c" font-size="11">L × 4 × 2304</text>
+
+  <rect x="470" y="124" width="390" height="100" fill="#fff7ed" stroke="#c2410c" stroke-width="2" rx="6"/>
+  <text x="486" y="148" fill="#9a3412" font-size="13" font-weight="700">B2 · Skeleton v3</text>
+  <text x="486" y="168" fill="#1c1917" font-size="12">75 khớp + validity + vận tốc</text>
+  <text x="486" y="188" fill="#44403c" font-size="11">Holistic + phục hồi tay C3</text>
+  <text x="486" y="208" fill="#44403c" font-size="11">→ Skeleton NPZ niêm phong</text>
+
+  <line x1="235" y1="224" x2="235" y2="242" stroke="#1c1917" stroke-width="2"/>
+  <line x1="665" y1="224" x2="665" y2="242" stroke="#1c1917" stroke-width="2"/>
+  <line x1="235" y1="242" x2="665" y2="242" stroke="#1c1917" stroke-width="2"/>
+  <line x1="450" y1="242" x2="450" y2="258" stroke="#1c1917" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="40" y="260" width="820" height="44" fill="#f5f5f4" stroke="#1c1917" stroke-width="1.5" rx="6"/>
+  <text x="56" y="288" fill="#1c1917" font-size="12" font-weight="700">Quality scan D0 — chỉ cache PASS, cùng sample-id cho mọi variant</text>
+  <line x1="450" y1="304" x2="450" y2="322" stroke="#1c1917" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="40" y="324" width="820" height="72" fill="#fef3c7" stroke="#b45309" stroke-width="2" rx="6"/>
+  <text x="56" y="348" fill="#92400e" font-size="13" font-weight="700">C · MODEL (CTR-matched / equal-budget)</text>
+  <text x="56" y="370" fill="#1c1917" font-size="12">RGB-strong · B3 CTR concat · B3+MLP CTR (đối chứng) · B4-V6 (đề xuất) · E4 (phụ lục NO-GO)</text>
+  <text x="56" y="388" fill="#44403c" font-size="11">Mọi biến thể đọc cùng cache D0</text>
+  <line x1="450" y1="396" x2="450" y2="414" stroke="#1c1917" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="40" y="416" width="820" height="88" fill="#f1f5f9" stroke="#0f172a" stroke-width="2" rx="6"/>
+  <text x="56" y="440" fill="#0f172a" font-size="13" font-weight="700">D · VALIDATION GATE · 3 seed {42,123,456}</text>
+  <text x="56" y="462" fill="#1c1917" font-size="12">B4-V6 84,81±0,51% vs B3+MLP 80,54±1,57% · Δ+4,27 pp · CI95 [+2,94; +5,69]</text>
+  <text x="56" y="484" fill="#166534" font-size="12" font-weight="700">PASS → khóa ckpt seed 42     FAIL → NO_GO (không mở test/demo)</text>
+  <line x1="450" y1="504" x2="450" y2="522" stroke="#1c1917" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="40" y="524" width="820" height="100" fill="#dcfce7" stroke="#166534" stroke-width="2" rx="6"/>
+  <text x="56" y="548" fill="#14532d" font-size="13" font-weight="700">E · TEST hồi cứu signer-disjoint (không pristine blind)</text>
+  <text x="56" y="570" fill="#1c1917" font-size="12">Signer 24–28 · n=6.165 · oneshot seed 42</text>
+  <text x="56" y="590" fill="#1c1917" font-size="12">B4-V6 Top-1 51,55% · Top-5 73,88% · Macro-F1 51,37% · Δ+9,33 pp · CI [+6,37; +11,34]</text>
+  <text x="56" y="610" fill="#1c1917" font-size="12">McNemar 1047 vs 472 · p ≈ 2,8×10⁻⁵⁰</text>
+  <line x1="450" y1="624" x2="450" y2="642" stroke="#1c1917" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="40" y="644" width="820" height="88" fill="#ecfeff" stroke="#0e7490" stroke-width="2" rx="6"/>
+  <text x="56" y="668" fill="#0e7490" font-size="13" font-weight="700">F · DEMO fail-closed · D4 15/15</text>
+  <text x="56" y="690" fill="#1c1917" font-size="12">Khớp SHA + lineage cache · UI RGB ‖ Skeleton · GT tách Top-k</text>
+  <text x="56" y="712" fill="#991b1b" font-size="12">Sai SHA / thiếu cache / clip ngoài → DỪNG, không fallback lịch sử</text>
+  <line x1="450" y1="732" x2="450" y2="750" stroke="#1c1917" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="40" y="752" width="820" height="100" fill="#d1fae5" stroke="#047857" stroke-width="2" rx="6"/>
+  <text x="56" y="776" fill="#064e3b" font-size="13" font-weight="700">G · OUTPUT</text>
+  <text x="56" y="798" fill="#1c1917" font-size="12">Softmax 400 lớp → Top-1 / Top-5 → người xác nhận</text>
+  <text x="56" y="818" fill="#166534" font-size="12" font-weight="700">Claim: B4-V6 outperform B3+MLP CTR trên protocol cục bộ = DEFENSE_GO</text>
+  <text x="56" y="838" fill="#991b1b" font-size="11">Không: SOTA paper · pristine blind · real-time · production · dịch câu · E4 đề xuất</text>
+
+  <text x="40" y="880" fill="#57534e" font-size="11">SoT: B4_CURRENT_REPORT.md · FINAL_RESULTS.json · Campaign DEFENSE_GO · b4_v6_ctr</text>
+  <text x="40" y="900" fill="#57534e" font-size="11">Nguồn Mermaid chỉnh sửa: Docs/MSSTA_DEFENSE_FULL_FLOW_MERMAID.md</text>
+</svg>

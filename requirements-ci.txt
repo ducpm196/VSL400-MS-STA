@@ -1,0 +1,11 @@
+# CI gate set (no MediaPipe / no W&B / no Google APIs — protobuf-clean).
+# Must keep import boundary: tests must not import MediaPipe at collection time.
+-r requirements-core.txt
+transformers>=4.38.0
+fastapi>=0.110.0
+uvicorn>=0.28.0
+httpx>=0.27.0
+psutil==7.2.2
+# Formal defense artifact tests import these at collection time.
+python-pptx>=1.0.2
+PyMuPDF>=1.24.0

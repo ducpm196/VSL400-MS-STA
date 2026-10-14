@@ -1,0 +1,17 @@
+# Demo / API surface (B0 + optional gloss_llm via google-genai).
+# Includes pytorchvideo for SlowFast inference. NO MediaPipe.
+# Do NOT install legacy google-generativeai.
+#
+#   python -m venv env_demo
+#   env_demo\Scripts\pip install -r requirements-demo.txt
+#   env_demo\Scripts\pip check
+#
+-r requirements-core.txt
+pytorchvideo>=0.1.5
+fastapi>=0.110.0
+uvicorn>=0.28.0
+streamlit>=1.31.1
+google-genai>=1.0.0
+httpx>=0.27.0
+matplotlib>=3.8.3
+seaborn>=0.13.2

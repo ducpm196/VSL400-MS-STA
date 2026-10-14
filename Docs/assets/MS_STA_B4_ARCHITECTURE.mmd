@@ -1,0 +1,50 @@
+%% MS-STA B4-V6 — sơ đồ dễ hiểu + chi tiết input D0
+%% Dán vào https://mermaid.live
+%% Luận điểm 1: cùng input D0 → hợp nhất MS-STA tốt hơn đối chứng
+
+flowchart TB
+  classDef step fill:#F8FAFC,stroke:#334155,stroke-width:1.5px,color:#111
+  classDef in fill:#E0F2FE,stroke:#0369A1,stroke-width:2px,color:#111
+  classDef rgb fill:#ECFEFF,stroke:#0E7490,stroke-width:1.5px,color:#111
+  classDef skel fill:#FFF7ED,stroke:#C2410C,stroke-width:1.5px,color:#111
+  classDef think fill:#F5F3FF,stroke:#6D28D9,stroke-width:1.5px,color:#111
+  classDef out fill:#DCFCE7,stroke:#166534,stroke-width:2px,color:#111
+  classDef note fill:#FFFBEB,stroke:#D97706,stroke-width:1px,color:#111
+
+  A["BƯỚC 1 · INPUT VIDEO<br/>Clip Front · đúng 1 từ ký hiệu<br/>Giải mã frame → letterbox/chuẩn hóa<br/>Chia thành L cửa sổ thời gian"]
+
+  B1["RGB · SlowFast đóng băng<br/>Mỗi cửa sổ → feature map<br/>ROIAlign 4 vùng:<br/>global · mặt · tay trái · tay phải<br/>Mỗi vùng = 2304 số<br/>Token: L × 4 × 2304 + mask"]
+
+  B2["Skeleton · MediaPipe Holistic<br/>Chọn 75 khớp:<br/>12 pose + 21 face<br/>+ 21 tay trái + 21 tay phải<br/>Tọa độ + vận tốc + validity"]
+
+  C["BƯỚC 2 · CACHE D0 NIÊM PHONG<br/>Cùng đặc trưng cho RGB strong / B3 / B4<br/>Khóa để so sánh công bằng"]
+
+  D1["RGB temporal Transformer<br/>Nối các cửa sổ trước–sau"]
+  D2["CTR-GC-lite trên 75 khớp<br/>+ Transformer thời gian xương"]
+
+  E1["Cross-attention<br/>Xương hỏi · RGB trả lời vùng"]
+  E2["Stream gate<br/>Chọn tin RGB hay Skeleton"]
+  E3["Residual có chặn<br/>Trên nền B3+MLP"]
+
+  F["OUTPUT<br/>400 điểm = 400 từ VSL400<br/>Softmax → Top-1 / Top-5<br/>Người dùng xác nhận"]
+
+  N["Ghi nhớ<br/>B4 dùng token SlowFast nặng<br/>→ chính xác nhưng có thể chậm khi đo từ video thô"]
+
+  A --> B1
+  A --> B2
+  B1 --> C
+  B2 --> C
+  C --> D1
+  C --> D2
+  D1 --> E1
+  D2 --> E1
+  E1 --> E2 --> E3 --> F
+  F --- N
+
+  class A,C step
+  class A in
+  class B1,D1 rgb
+  class B2,D2 skel
+  class E1,E2,E3 think
+  class F out
+  class N note

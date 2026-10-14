@@ -1,0 +1,272 @@
+# Virtual environment
+env/
+.venv/
+venv/
+_venvs/
+env_demo/
+env_ci/
+env_train/
+env_extract/
+
+# Rebuildable submission archives and extracted verification copies.
+/dist/submission*/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Large data artifacts (never commit to Git)
+data/raw/
+data/processed/*
+# Canonical MS-STA contracts (small JSON; force-track under processed/)
+!data/processed/ms_sta_registry.json
+!data/processed/ms_sta_registry_active.json
+!data/processed/ms_sta_registry_v3_validation_no_go.json
+!data/processed/ms_sta_registry_v4_validation_no_go.json
+!data/processed/ms_sta_registry_v5_defense_go.json
+!data/processed/ms_sta_registry_v6_defense_go.json
+!data/processed/historical_not_primary.json
+!data/processed/vsl400_eligible_sample_manifest.json
+!data/processed/vsl400_e1_split_manifest.json
+!data/processed/vsl400_retrain_v3_split_manifest.json
+!data/processed/vsl400_retrain_v4_split_manifest.json
+!data/processed/vsl400_labels.json
+!data/processed/demo_set_option_b.json
+!data/processed/demo_set_ms_sta.json
+!data/processed/demo_set_ms_sta_v5.json
+!data/processed/vsl400_split_signers.json
+data/features/
+data/qa/
+logs/wheels/
+tmp/
+*.mp4
+*.npy
+*.avi
+*.mkv
+*.pth
+*.pt
+*.pyth
+*.safetensors
+*.whl
+
+# F0 realized binaries (manifests/evidence logs remain tracked)
+Docs/results/ms_sta_v5_f0/weights/
+Docs/results/ms_sta_v5_f0/evidence/wheelhouse/
+Docs/results/ms_sta_v5_f0/evidence/*.part
+
+# M0 / V5-E checkpoints stay local (JSON evidence tracked)
+Docs/results/ms_sta_v5_m0_runs/**/*.pt
+Docs/results/ms_sta_v5_e_runs/**/*.pt
+
+
+# Secrets
+.env
+.kaggle/
+kaggle.json
+
+# Experiment tracking
+wandb/
+
+# Download logs (may contain progress noise)
+logs/
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+.kiro/
+CONSUMER.txt
+INSTALL.txt
+KIT_MANIFEST.json
+agentflow/
+codegraph/
+.cursor/
+.codegraph/
+# CodeGraph — generated index & agent state (repo root .codegraph/)
+.codegraph/*.sqlite3
+.codegraph/*.sqlite3-wal
+.codegraph/*.sqlite3-shm
+.codegraph/scratchpad.md
+.codegraph/todo.md
+.codegraph/.index-stale
+
+# CodeGraph — drop-in kit (codegraph/)
+codegraph/.venv/
+codegraph/**/__pycache__/
+codegraph/**/*.py[cod]
+codegraph/dist/
+
+# Windows download metadata (NTFS alternate data streams)
+*:Zone.Identifier
+
+# retrain-v3 runtime launchers
+logs/ms_sta_retrain_v3/launch_*.cmd
+logs/ms_sta_retrain_v3/*.out.log
+logs/ms_sta_retrain_v3/*.err.log
+tmp/
+
+
+# D0 pilot tensors (compact tokens; regenerable under run contract)
+Docs/results/ms_sta_v5_d0/pilot_outputs/**/*.npz
+Docs/results/ms_sta_v5_d0/pilot_outputs/**/*.meta.json
+
+
+# D0 v15 scan-recovery perf smoke ephemeral runtime
+Docs/results/ms_sta_v5_d0_full/v15/scan_recovery_perf_smoke_runtime/
+
+# MS-STA V6/E2/E3 raw run trees (canonical evidence is compact JSON only)
+Docs/results/ms_sta_v6_runs/
+Docs/results/ms_sta_v6_e3_runs/
+Docs/results/ms_sta_v6_ctr_matched_runs/
+Docs/results/ms_sta_v5_e2_runs/
+Docs/results/ms_sta_v6_e4_runs/
+Docs/results/ms_sta_v6_e4_r2_runs/
+Docs/results/ms_sta_v6_e4_r2_runs_canonical/**
+!Docs/results/ms_sta_v6_e4_r2_runs_canonical/README.md
+Docs/results/ms_sta_v6_e4_r3_runs_canonical/**
+!Docs/results/ms_sta_v6_e4_r3_runs_canonical/README.md
+Docs/results/ms_sta_v6_e4_r4c_runs_canonical/**
+!Docs/results/ms_sta_v6_e4_r4c_runs_canonical/README.md
+!Docs/results/ms_sta_v6_e4_r4c_runs_canonical/HPO_INDEX.json
+!Docs/results/ms_sta_v6_e4_r4c_runs_canonical/HPO_SELECTION.json
+Docs/results/ms_sta_v6_e4_r4/E4_R4C_HPO_LIVE.log
+Docs/results/ms_sta_v6_e4_r2_prelock_diagnostic_*/runs/
+logs/e4_r2_hpo_*.log
+logs/e4_r3_*.log
+**/VAL_PREDS.json
+# E4-R2 ACCURACY_NO_GO: sealed B4 confirm VAL_PREDS referenced by CONFIRM_VALIDATION_REPORT
+!Docs/results/ms_sta_v6_e4_r2/b4_confirm_val_preds_export/
+!Docs/results/ms_sta_v6_e4_r2/b4_confirm_val_preds_export/**_VAL_PREDS.json
+**/history.json
+**/train.log
+**/ORCHESTRATOR.log
+**/best.pt
+**/PROVENANCE.json
+**/SUMMARY.json
+
+# E4_B4SC durable checkpoint blobs (metadata JSON tracked; weights local)
+Docs/results/ms_sta_v6_e4_b4sc_registry/blobs/
+
+# E4_SYSKD_V1: full-val logit dumps (~23MB) live in registry; ART keeps SHA pointers
+Docs/results/e4_system_kd_v1_registry/*_VAL_PREDICTIONS.jsonl
+Docs/results/e4_system_kd_v1_registry/*CONFIRMATION_PREDICTIONS*.jsonl
+Docs/results/e4_system_kd_v1_registry/*LOCKED_TEST_PREDICTIONS*.jsonl
+Docs/results/e4_system_kd_v1_registry/*PRE_D4_RECONCILIATION_RAW*.jsonl
+Docs/results/e4_system_kd_v1_registry/*R0_ONLINE_COMPARATOR_PREDICTIONS*.jsonl
+Docs/results/e4_system_kd_v1/*_run.log
+Docs/results/e4_system_kd_v1/*LOCKED_TEST_run.err.log
+Docs/results/e4_system_kd_v1/*LOCKED_TEST_watch.log
+Docs/results/e4_system_kd_v1/*R0_ONLINE_COMPARATOR_run*.log
+
+# CodeGraph campaign-local (do not use main sqlite)
+.codegraph/vsl_e4_syskd_v1_campaign.sqlite3
+.codegraph/.index-stale
+.codegraph/scratchpad.md
+.codegraph/todo.md
+# kit junction (lives on main)
+/codegraph/
+
+# Visual QA rasters are regenerated from HTML/PDF; do not commit 29 PNGs
+Docs/presentation/final/_visual_qa_v2_png/
+# LaTeX intermediates and cover screenshots (PDF/TeX/DOCX are the deliverables)
+Docs/thesis/*.aux
+Docs/thesis/*.log
+Docs/thesis/*.toc
+Docs/thesis/*.lof
+Docs/thesis/*.lot
+Docs/thesis/*.out
+Docs/thesis/_layout_*.png
+Docs/thesis/_cover_*.png
+Docs/thesis/_fig_*.png
+Docs/presentation/final/codex/*_NEW.pptx
+# Codex scratch dumps (stale overlay JSON / page checks)
+Docs/presentation/final/codex/_page14*
+Docs/presentation/final/codex/_*.png
+
+# Thesis build dir and regenerated page rasters (TeX/PDF/DOCX stay tracked)
+Docs/thesis/_tex_build/
+Docs/thesis/_visual_qa_*/
+
+# Obsolete slide-audit snapshots superseded by the faculty board and current deck
+Docs/presentation/final/MS_STA_VSL400_CLAIM_LEDGER.json
+Docs/presentation/final/MS_STA_VSL400_CODEX_SYNC_VERIFY.json
+Docs/presentation/final/MS_STA_VSL400_CODEX_V4_BASELINE.json
+Docs/presentation/final/MS_STA_VSL400_CODEX_V4_TEMPLATE_CHECKPOINT.json
+Docs/presentation/final/MS_STA_VSL400_CONTENT_AND_SYMBOL_CHECKPOINT.json
+Docs/presentation/final/MS_STA_VSL400_DECK_CONTENT_AUDIT_V2.json
+Docs/presentation/final/MS_STA_VSL400_EXPERIMENT_PROTOCOL_AUDIT.json
+Docs/presentation/final/MS_STA_VSL400_FORMAL_PAGES_AUDIT.json
+Docs/presentation/final/MS_STA_VSL400_FORMAL_PAGES_CHECKPOINT.json
+Docs/presentation/final/MS_STA_VSL400_METHOD_SURVEY_AUDIT.json
+Docs/presentation/final/MS_STA_VSL400_NARRATIVE_TRANSITION_LEDGER.json
+Docs/presentation/final/MS_STA_VSL400_PROBLEM_DEFINITION_AUDIT.json
+Docs/presentation/final/MS_STA_VSL400_ROLEPLAY_AUDIT.json
+Docs/presentation/final/MS_STA_VSL400_SLIDE21_VARIANT_REVIEW.json
+Docs/presentation/final/MS_STA_VSL400_SLIDE_REDUNDANCY_AUDIT.json
+Docs/presentation/final/MS_STA_VSL400_SLIDE_RELEASE.json
+Docs/presentation/final/MS_STA_VSL400_SYMBOL_LAYOUT_AUDIT.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_ASSET_MANIFEST.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_ASSET_MANIFEST_V4.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA.md
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_29.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_29_V2.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_29_V3.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_29_V4.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_30.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_30_FINAL.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_30_FINAL.md
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_30_V4.json
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_V2.md
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_V3.md
+Docs/presentation/final/MS_STA_VSL400_VISUAL_QA_V4.md
+Docs/results/project_finalization/_FIVE_CHAPTER_INJECT.html
+
+# LaTeX accident log at the repo root (thesis logs stay under Docs/thesis/)
+/texput.log
+
+# One-shot rewrite passes. Tracked helpers stay: _build_gate3_report.py,
+# _gen_encyclopedia_ai_eng.py, _write_defense_sha.py.
+scripts/_expand_report_70_99*.py
+scripts/_faculty_*.py
+scripts/_faculty_*.ps1
+scripts/_finalize_*.py
+scripts/_teacher_ieee_pass*.py
+scripts/_write_28_notes_kichban.py
+scripts/_write_36_notes_kichban.py
+scripts/_emit_rebuild_36_head.py
+scripts/_audit_layout_vs_mau.py
+scripts/_inject_faculty_copy_subtitles.py
+scripts/_patch_rebuild_to_36.py
+scripts/_patch_tests_36.py
+scripts/_post_rewrite_contract_audit.py
+scripts/_rebuild_logic_deck.py
+scripts/_report_70_99_baseline.py
+scripts/_rewrite_baseline_verify.py
+scripts/_sample_style_polish1.py
+scripts/_soft_tex_voice_pass2.py
+scripts/_verify_deck_titles.py
+scripts/_verify_voice_pass2.py
+scripts/_close_inject_five_chapters.py
+scripts/_close_write_ledgers.py
+scripts/_close_write_remaining_verify.py
+scripts/_codex_get_and_export.py
+scripts/_final_cleanup.py
+scripts/_inject_concept_primer.py
+scripts/_iv_restore_artifacts_by_sha.py
+scripts/_write_visual_qa_v4.py
+scripts/write_visual_qa_v3.py
+
+# CodeGraph — Claude Code adapter (absolute machine paths)
+.mcp.json
+.claude/
+
+# Local AI-tool instructions and CodeGraph governance stubs (kept on disk, not part of the submission)
+AGENTS.md
+Docs/bmad/
+Docs/memory/

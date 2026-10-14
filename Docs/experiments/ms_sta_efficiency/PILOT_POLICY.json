@@ -1,0 +1,53 @@
+{
+  "schema": "ms_sta_efficiency_pilot_policy_v1",
+  "status": "PILOT_ONLY",
+  "claim_allowed": false,
+  "objective": "Test whether parameter-free stride-4 Skeleton temporal downsampling is accuracy-feasible before a clean canonical study.",
+  "base_model": {
+    "variant": "b4",
+    "implementation": "src/models/ms_sta_wordlevel.py",
+    "e1_policy": "Docs/results/ms_sta_e1_policy/E1_POLICY.json",
+    "e1_policy_sha256": "12cf1176c94c43b9bef87d1da65cb5c911961a0afccedf2414f09fed963ae53a",
+    "seed42_val_top1_pct": 52.02312138728324,
+    "seed42_val_top5_pct": 84.23892100192678
+  },
+  "change_under_test": {
+    "stream": "skeleton",
+    "placement": "after spatial attention and 256-d projection, before Skeleton TemporalTransformer",
+    "operation": "avg_pool1d",
+    "kernel_size": 4,
+    "stride": 4,
+    "ceil_mode": true,
+    "learned_parameters_added": 0,
+    "canonical_input_tokens": 64,
+    "output_tokens": 16,
+    "skeleton_self_attention_score_reduction_pct": 93.75
+  },
+  "pilot_gate_predeclared": {
+    "seed": 42,
+    "top1_max_regression_pp": 2.0,
+    "top5_max_regression_pp": 2.0,
+    "action_if_fail": "stop; do not open canonical efficiency claim",
+    "action_if_pass": "require clean code-lock and three-seed canonical study"
+  },
+  "canonical_claim_requirements": {
+    "seeds": [42, 123, 456],
+    "validation_only_until_selection_locked": true,
+    "benchmark_same_gpu_batch_precision": true,
+    "report_score_matrix_latency_vram_separately": true,
+    "test_reuse_forbidden": true
+  },
+  "artifact_dirs": {
+    "checkpoints": "data/processed/ms_sta_efficiency_pilot",
+    "status": "logs/ms_sta_efficiency_pilot"
+  },
+  "initialization": {
+    "gate3_checkpoint": "data/processed/vsl400_classifier.pth",
+    "gate3_checkpoint_sha256": "26d866c33676f921198c9ffc61710ff1c4671f6debe782c81c828124977cfe11"
+  },
+  "notes": [
+    "Pilot artifacts are not defense evidence.",
+    "The 93.75% figure applies only to the Skeleton temporal self-attention score matrix at T=64 to 16.",
+    "No claim about whole-model FLOPs, latency, VRAM, accuracy, real-time, or production is allowed from this policy."
+  ]
+}

@@ -1,0 +1,16 @@
+# D1 skeleton extraction ONLY (MediaPipe Holistic).
+# Use a dedicated venv — NEVER mix with train/demo (protobuf 3.x vs 4+/5+).
+#
+#   python -m venv env_extract
+#   env_extract\Scripts\pip install -r requirements-extract.txt
+#   env_extract\Scripts\pip check
+#
+numpy>=1.24.3
+opencv-python>=4.9.0,<5
+scipy>=1.12.0
+pandas>=2.2.0
+python-dotenv>=1.0.0
+mediapipe==0.10.9
+protobuf==3.20.3
+pytest>=8.0.0
+psutil==7.2.2

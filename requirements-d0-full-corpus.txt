@@ -1,0 +1,3 @@
+# D0 full-corpus execution extra pins (install into extract + f0 + ci).
+# Does not rewrite sealed F0_REQUIREMENTS.lock; freeze SHA is bound by approval v4.
+psutil==7.2.2

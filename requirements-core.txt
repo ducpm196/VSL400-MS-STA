@@ -1,0 +1,12 @@
+# Shared numeric / table / test runtime (NO MediaPipe, NO Google APIs, NO W&B).
+# GPU: install CUDA wheels explicitly when needed, e.g.
+#   pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121
+torch>=2.2.0
+torchvision>=0.17.0
+numpy>=1.24.3
+opencv-python>=4.9.0,<5
+scipy>=1.12.0
+pandas>=2.2.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+pytest>=8.0.0

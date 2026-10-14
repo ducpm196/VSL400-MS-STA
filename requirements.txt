@@ -1,0 +1,11 @@
+# Default pointer — DO NOT use this as a single mixed install for canonical work.
+# Protobuf conflict: MediaPipe 0.10.9 needs protobuf 3.x; W&B / google-* need newer.
+#
+# Canonical environments (each must pass `pip check` alone):
+#   1) Extract D1:  pip install -r requirements-extract.txt   → env_extract
+#   2) Train/eval:  pip install -r requirements-train.txt     → env_train
+#   3) Demo/API:    pip install -r requirements-demo.txt      → env_demo
+#   CI:             pip install -r requirements-ci.txt
+#
+# For local demo day, install demo env (not extract):
+-r requirements-demo.txt

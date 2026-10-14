@@ -1,0 +1,14 @@
+# Train / eval MS-STA + SlowFast features (consumes pre-extracted caches).
+# NO MediaPipe — skeleton/temporal must already exist under data/features/.
+#
+#   python -m venv env_train
+#   env_train\Scripts\pip install -r requirements-train.txt
+#   env_train\Scripts\pip check
+#
+-r requirements-core.txt
+pytorchvideo>=0.1.5
+transformers>=4.38.0
+accelerate>=0.27.0
+huggingface_hub>=0.21.0
+# Optional experiment tracking (protobuf-compatible with this env; not with extract)
+wandb>=0.16.3

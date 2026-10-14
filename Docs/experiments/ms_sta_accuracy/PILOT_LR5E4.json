@@ -1,0 +1,14 @@
+{
+  "schema": "ms_sta_accuracy_pilot_policy_v1",
+  "status": "PILOT_ONLY",
+  "claim_allowed": false,
+  "screen_policy": "Docs/experiments/ms_sta_accuracy/SCREEN_POLICY.json",
+  "candidate_id": "lr5e4",
+  "artifact_dirs": {
+    "checkpoints": "data/processed/ms_sta_accuracy_pilot_lr5e4",
+    "status": "logs/ms_sta_accuracy_pilot_lr5e4"
+  },
+  "initialization": {
+    "gate3_checkpoint": "data/processed/vsl400_classifier.pth"
+  }
+}
